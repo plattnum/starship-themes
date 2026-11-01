@@ -67,11 +67,18 @@ by matching the current path, with the Apple logo as the fallback. Add a line to
 
 ## Claude Code status line
 
-`claude-code/` has the same bar for Claude Code's status line, in the viking and druid
-palettes. Install one and point `~/.claude/settings.json` at it:
+`claude-code/statusline.sh` draws the same bar in Claude Code's status line and takes its
+colours from the Starship theme in use, so the prompt and the status line always match.
+It reads `STARSHIP_CONFIG`, which Claude Code inherits from the shell it was started in,
+and falls back to `~/.config/starship.toml`. With the per-directory hook above, each
+project gets its palette in Claude Code too. The badge, directory, git, runtime and clock
+colours come from the matching Starship sections; a theme without backgrounds, like
+`neon`, falls back to the druid greens.
+
+Install it and point `~/.claude/settings.json` at it:
 
 ```sh
-cp claude-code/statusline-druid.sh ~/.claude/statusline-command.sh
+cp claude-code/statusline.sh ~/.claude/statusline-command.sh
 ```
 
 ```json
