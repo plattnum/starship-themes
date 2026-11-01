@@ -11,22 +11,28 @@ Six palettes share one layout, derived from the Viking theme in
 a project badge, a repo-aware directory, git branch, status, rebase/merge state and line
 metrics, runtime badges, the clock, and the prompt character on its own line.
 
-| Theme | Ramp |
-|---|---|
-| `viking` | teal, the original palette |
-| `druid` | forest green to mint |
-| `mage` | deep violet to lavender |
-| `gilt` | bronze to gold |
-| `ember` | wine to rose |
-| `naval` | dark navy to sky |
+| Theme | Ramp | |
+|---|---|---|
+| `viking` | teal, the original palette | ![viking](screenshots/viking.png) |
+| `druid` | forest green to mint | ![druid](screenshots/druid.png) |
+| `mage` | deep violet to lavender | ![mage](screenshots/mage.png) |
+| `gilt` | bronze to gold | ![gilt](screenshots/gilt.png) |
+| `ember` | wine to rose | ![ember](screenshots/ember.png) |
+| `naval` | dark navy to sky | ![naval](screenshots/naval.png) |
 
 Three more are their own layouts:
 
-| Theme | Look |
-|---|---|
-| `arcade` | 8-bit powerline: pixel stair-step separators, synthwave gradient, `▓▒░` cursor |
-| `neon` | thin box-drawing frame, neon text, rail across to the clock |
-| `hud` | dark glass panels with slanted edges, neon readouts, fading chevron cursor |
+**arcade** — 8-bit powerline: pixel stair-step separators, synthwave gradient, `▓▒░` cursor
+
+![arcade](screenshots/arcade.png)
+
+**neon** — thin box-drawing frame, neon text, rail across to the clock
+
+![neon](screenshots/neon.png)
+
+**hud** — dark glass panels with slanted edges, neon readouts, fading chevron cursor
+
+![hud](screenshots/hud.png)
 
 ## Install
 
