@@ -1,0 +1,130 @@
+# Starship 'arcade' — 8-bit powerline. Pixel stair-step separators, synthwave gradient
+# (violet > purple > hot pink > orange > yellow), fading shade-block cursor.
+# Increase command timeout to prevent fnm warnings
+command_timeout = 1000
+add_newline = true
+
+format = '''
+[](fg:#2b0a5e)${custom.project}[](fg:#2b0a5e bg:#7b2cbf)$directory([](fg:#7b2cbf bg:#ff006e)$git_branch$git_status$git_state$git_metrics[](fg:#ff006e bg:#fb5607))([](fg:#fb5607 bg:#fb5607)$c$dotnet$golang$java$nodejs$python$rust)[](fg:#fb5607 bg:#ffbe0b)$time[](fg:#ffbe0b)$fill$jobs$cmd_duration
+$character'''
+
+[fill]
+symbol = ' '
+
+[character]
+success_symbol = '[▓▒░](bold #ff006e) '
+error_symbol = '[▓▒░](bold #ff3b3b) '
+
+[directory]
+style = 'bold fg:#ffffff bg:#7b2cbf'
+format = '[ $path ]($style)'
+truncation_length = 3
+truncation_symbol = '…/'
+truncate_to_repo = true
+repo_root_style = 'bold fg:#ffbe0b bg:#7b2cbf'
+repo_root_format = '[ ]($style)[$repo_root]($repo_root_style)[$path ]($style)'
+
+[git_branch]
+symbol = ''
+style = 'bold fg:#ffffff bg:#ff006e'
+format = '[ $symbol $branch]($style)'
+
+[git_status]
+style = 'bold fg:#ffbe0b bg:#ff006e'
+conflicted = ' 🏳'
+up_to_date = ''
+untracked = ' ?'
+ahead = ' ⇡${count}'
+diverged = ' ⇕⇡${ahead_count}⇣${behind_count}'
+behind = ' ⇣${count}'
+stashed = ' $'
+modified = ' !'
+staged = ' +${count}'
+renamed = ' »'
+deleted = ' ✘'
+format = '[$all_status$ahead_behind]($style)[ ](bg:#ff006e)'
+
+[git_state]
+style = 'bold fg:#2b0a5e bg:#ff006e'
+format = '[$state( $progress_current/$progress_total) ]($style)'
+
+[git_metrics]
+disabled = false
+only_nonzero_diffs = true
+added_style = 'bold fg:#39ff14 bg:#ff006e'
+deleted_style = 'bold fg:#2b0a5e bg:#ff006e'
+format = '([+$added ]($added_style))([-$deleted ]($deleted_style))'
+
+[c]
+symbol = 'C'
+style = 'bold fg:#ffffff bg:#fb5607'
+format = '[ $symbol ]($style)'
+
+[dotnet]
+symbol = '.NET'
+style = 'bold fg:#ffffff bg:#fb5607'
+format = '[ $symbol ]($style)'
+detect_files = ['global.json', 'project.json', 'Directory.Build.props', 'Directory.Build.targets', 'Packages.props']
+detect_extensions = ['csproj', 'fsproj', 'xproj', 'sln']
+
+[golang]
+symbol = 'GO'
+style = 'bold fg:#ffffff bg:#fb5607'
+format = '[ $symbol ]($style)'
+
+[java]
+symbol = 'JAVA'
+style = 'bold fg:#ffffff bg:#fb5607'
+format = '[ $symbol ]($style)'
+
+[nodejs]
+symbol = 'NODE'
+style = 'bold fg:#ffffff bg:#fb5607'
+format = '[ $symbol ]($style)'
+
+[python]
+symbol = 'PY'
+style = 'bold fg:#ffffff bg:#fb5607'
+format = '[ $symbol ]($style)'
+
+[rust]
+symbol = 'RS'
+style = 'bold fg:#ffffff bg:#fb5607'
+format = '[ $symbol ]($style)'
+
+[jobs]
+symbol = 'BG'
+number_threshold = 1
+format = '[](fg:#2b0a5e)[ $symbol:$number ](bold fg:#ffbe0b bg:#2b0a5e)[](fg:#2b0a5e) '
+
+[cmd_duration]
+min_time = 1
+format = '[](fg:#2b0a5e)[ ⏱ $duration ](bold fg:#ffbe0b bg:#2b0a5e)[](fg:#2b0a5e)'
+
+[time]
+disabled = false
+time_format = '%R'
+style = 'bold fg:#2b0a5e bg:#ffbe0b'
+format = '[ $time ]($style)'
+
+[username]
+disabled = true
+
+[hostname]
+disabled = true
+
+# Project badge: a glyph per project, Apple elsewhere. Matched by path prefix so
+# every checkout (-1, -2, -ci) of a project shows the same badge.
+[custom.project]
+when = true
+shell = ['sh']
+command = '''
+case "$PWD" in
+  */reignition-studio/word-mage*)   printf '\356\236\254' ;;  # U+E7AC dev-crystal
+  */reignition-studio/tidal-front*) printf '\357\204\275' ;;  # U+F13D anchor
+  */plattnum-public-oss/cera*)      printf '\357\200\255' ;;  # U+F02D book
+  *)                                printf '\357\205\271' ;;  # U+F179 apple
+esac
+'''
+style = 'bold fg:#ffbe0b bg:#2b0a5e'
+format = '[ $output ]($style)'

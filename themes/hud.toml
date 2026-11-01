@@ -1,0 +1,155 @@
+# Starship 'hud' — sci-fi heads-up display. Dark glass panels with slanted edges,
+# neon readouts, dotted rail to the clock, fading chevron cursor.
+# Increase command timeout to prevent fnm warnings
+command_timeout = 1000
+add_newline = true
+
+# Palette
+#   panel   #111827 / #1f2937   two glass shades
+#   cyan    #00e5ff   directory
+#   green   #39ff14   git branch, prompt ok
+#   magenta #ff2bd6   project badge, rebase/merge
+#   amber   #ffb000   git status, duration, jobs, battery
+#   violet  #a78bfa   runtimes
+#   red     #ff3b3b   deletions, errors
+#   grey    #94a3b8   clock
+#   rail    #374151   dotted rail
+
+format = '''
+[](#111827)[ ](bg:#111827)${custom.project}$directory[ ](bg:#111827)([](fg:#111827 bg:#1f2937)[ ](bg:#1f2937)$git_branch$git_status$git_state$git_metrics[ ](bg:#1f2937)[](fg:#1f2937 bg:#111827))([ ](bg:#111827)$c$dotnet$golang$java$nodejs$python$rust[ ](bg:#111827))[](#111827)$fill$status$battery$jobs$cmd_duration[](#111827)[ ](bg:#111827)$time[ ](bg:#111827)[](#111827)
+$character'''
+
+[fill]
+symbol = '┄'
+style = '#374151'
+
+[character]
+success_symbol = '[❯](bold #00e5ff)[❯](#0891b2)[❯](#164e63) '
+error_symbol = '[❯](bold #ff3b3b)[❯](#b91c1c)[❯](#7f1d1d) '
+
+[status]
+disabled = false
+format = '[](#3b0a0a)[ ✘ $status ](bold bg:#3b0a0a fg:#ff3b3b)[](#3b0a0a) '
+
+[battery]
+full_symbol = '󰁹 '
+charging_symbol = '󰂄 '
+discharging_symbol = '󰂃 '
+format = '[$symbol$percentage ]($style)'
+[[battery.display]]
+threshold = 30
+style = 'bold #ffb000'
+
+[directory]
+style = 'fg:#7dd3fc bg:#111827'
+format = '[$path]($style)'
+truncation_length = 3
+truncation_symbol = '…/'
+truncate_to_repo = true
+repo_root_style = 'bold fg:#00e5ff bg:#111827'
+repo_root_format = '[$repo_root]($repo_root_style)[$path]($style)'
+
+[git_branch]
+symbol = ''
+style = 'fg:#39ff14 bg:#1f2937'
+format = '[$symbol $branch]($style)'
+
+[git_status]
+style = 'fg:#ffb000 bg:#1f2937'
+conflicted = ' 🏳'
+up_to_date = ''
+untracked = ' ?'
+ahead = ' ⇡${count}'
+diverged = ' ⇕⇡${ahead_count}⇣${behind_count}'
+behind = ' ⇣${count}'
+stashed = ' $'
+modified = ' !'
+staged = ' +${count}'
+renamed = ' »'
+deleted = ' ✘'
+format = '[$all_status$ahead_behind]($style)'
+
+[git_state]
+style = 'bold fg:#ff2bd6 bg:#1f2937'
+format = '[ $state( $progress_current/$progress_total)]($style)'
+
+[git_metrics]
+disabled = false
+only_nonzero_diffs = true
+added_style = 'fg:#39ff14 bg:#1f2937'
+deleted_style = 'fg:#ff3b3b bg:#1f2937'
+format = '( [+$added]($added_style))( [-$deleted]($deleted_style))'
+
+[c]
+symbol = 'c'
+style = 'fg:#a78bfa bg:#111827'
+format = '[$symbol]($style)'
+
+[dotnet]
+symbol = '.net'
+style = 'fg:#a78bfa bg:#111827'
+format = '[$symbol]($style)'
+detect_files = ['global.json', 'project.json', 'Directory.Build.props', 'Directory.Build.targets', 'Packages.props']
+detect_extensions = ['csproj', 'fsproj', 'xproj', 'sln']
+
+[golang]
+symbol = 'go'
+style = 'fg:#a78bfa bg:#111827'
+format = '[$symbol]($style)'
+
+[java]
+symbol = 'java'
+style = 'fg:#a78bfa bg:#111827'
+format = '[$symbol]($style)'
+
+[nodejs]
+symbol = 'node'
+style = 'fg:#a78bfa bg:#111827'
+format = '[$symbol]($style)'
+
+[python]
+symbol = 'py'
+style = 'fg:#a78bfa bg:#111827'
+format = '[$symbol]($style)'
+
+[rust]
+symbol = 'rs'
+style = 'fg:#a78bfa bg:#111827'
+format = '[$symbol]($style)'
+
+[jobs]
+symbol = 'bg'
+number_threshold = 1
+format = '[$symbol:$number ](bold #ffb000)'
+
+[cmd_duration]
+min_time = 1
+format = '[ $duration ](#ffb000)'
+
+[time]
+disabled = false
+time_format = '%R'
+style = 'fg:#94a3b8 bg:#111827'
+format = '[$time]($style)'
+
+[username]
+disabled = true
+
+[hostname]
+disabled = true
+
+# Project badge: a glyph per project, Apple elsewhere. Matched by path prefix so
+# every checkout (-1, -2, -ci) of a project shows the same badge.
+[custom.project]
+when = true
+shell = ['sh']
+command = '''
+case "$PWD" in
+  */reignition-studio/word-mage*)   printf '\356\236\254' ;;  # U+E7AC dev-crystal
+  */reignition-studio/tidal-front*) printf '\357\204\275' ;;  # U+F13D anchor
+  */plattnum-public-oss/cera*)      printf '\357\200\255' ;;  # U+F02D book
+  *)                                printf '\357\205\271' ;;  # U+F179 apple
+esac
+'''
+style = 'fg:#ff2bd6 bg:#111827'
+format = '[$output ]($style)'
