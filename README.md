@@ -77,6 +77,11 @@ cp claude-code/statusline-druid.sh ~/.claude/statusline-command.sh
 
 It needs `jq`.
 
+## Pull requests
+
+Not accepted. This is a personal config, published so it is easy to copy. Fork it and
+make it yours; pull requests are closed automatically.
+
 ## Credits
 
 Layout and the Viking palette from [tr3ss/starship-themes](https://github.com/tr3ss/starship-themes).

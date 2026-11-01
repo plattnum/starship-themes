@@ -1,0 +1,16 @@
+# This repo does not take pull requests. Close any that are opened, with a note.
+name: Close pull requests
+on:
+  pull_request_target:
+    types: [opened, reopened]
+permissions:
+  pull-requests: write
+jobs:
+  close:
+    runs-on: ubuntu-latest
+    steps:
+      - run: gh pr close "$PR" --comment "Thanks, but this repo does not take pull requests. Fork it and make it yours."
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
